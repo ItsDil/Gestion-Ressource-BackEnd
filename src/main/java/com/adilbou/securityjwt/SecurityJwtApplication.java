@@ -9,7 +9,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +89,17 @@ public class SecurityJwtApplication {
 
             }
 
+
+            RegisterRequest technicien = new RegisterRequest();
+            List<Role> roles_tech = new ArrayList<>();
+            roles_tech.add(roleTech);
+            technicien.setFirstname("tech");
+            technicien.setLastname("thbou");
+            technicien.setEmail("tech@gmail.com");
+            technicien.setPassword("1234");
+            technicien.setSpeciality("Materiel Side");
+            technicien.setRoles(roles_tech);
+            authService.register(technicien);
 
 
 

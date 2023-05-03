@@ -17,7 +17,7 @@ public class Ordinateur extends Ressource {
 
     private String cpu;
     private int ram;
-    private String disqueDur;
+    private String stockage;
     private String ecran;
 
 }

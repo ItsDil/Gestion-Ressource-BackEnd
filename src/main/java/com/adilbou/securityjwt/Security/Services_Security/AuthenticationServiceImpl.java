@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -190,6 +191,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
 
+        try{
+
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -197,8 +201,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 )
         );
 
-        var user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(()->new NotFoundException("User with Email '"+ request.getEmail()+"' Not Found"));
+        var user = userRepository.findByEmail(request.getEmail()).get();
 
 
 
@@ -218,6 +221,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .refreshToken(refreshToken)
                 .build();
 
+        }catch (AuthenticationException e){
+            throw new NotFoundException("Bad Credential");
+        }
     }
 
 

@@ -16,8 +16,6 @@ import org.hibernate.annotations.OnDeleteAction;
 public class Imprimante extends Ressource {
 
     private String resolution;
-    private int vitesseImpression;
-
-
+    private int vitesse;
 
 }

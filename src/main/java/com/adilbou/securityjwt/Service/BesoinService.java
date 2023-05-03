@@ -1,15 +1,19 @@
-//package com.adilbou.securityjwt.Service;
+package com.adilbou.securityjwt.Service;
+
+
+
+
+import com.adilbou.securityjwt.DTOs.AppelOffreDTO;
+import com.adilbou.securityjwt.DTOs.BesoinDTO;
+import com.adilbou.securityjwt.DTOs.BesoinValide;
+import com.adilbou.securityjwt.DTOs.MiniAppelOffreDTO;
+import com.adilbou.securityjwt.Entities.Besoin;
+
+import java.util.List;
 //
+public interface BesoinService {
 //
-//
-//
-//import com.adilbou.securityjwt.Entities.Besoin;
-//
-//import java.util.List;
-//
-//public interface BesoinService {
-//
-//    Besoin save(Besoin besoin);
+    Besoin save(Besoin besoin);
 //    List<Besoin> getAllBesoins();
 //    List<Besoin> getAllBesoinDepartement(String nameDepartement);
 //    List<Besoin> getBesoinsMembreDepartement(Integer id);
@@ -21,4 +25,10 @@
 //    void besoinAddedInAppelOffre(Long id);
 //    List<Besoin> getBesoinsNotInAppelOffre();
 //
-//}
+
+
+    MiniAppelOffreDTO getMiniAppelOffre(Integer id);
+    void MiniAppelOffreValidation(BesoinValide besoinValide);
+
+    AppelOffreDTO getAppelOffreValide();
+}

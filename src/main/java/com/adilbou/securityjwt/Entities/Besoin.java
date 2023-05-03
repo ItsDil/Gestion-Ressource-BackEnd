@@ -20,7 +20,7 @@ public class Besoin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date dateDemande;
+    private String dateDemande;
     private Date dateAffectation;
     private Boolean isAffected=false;
     private Integer idMembreDepartement;

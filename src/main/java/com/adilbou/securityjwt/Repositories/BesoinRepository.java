@@ -1,16 +1,19 @@
-//package com.adilbou.securityjwt.Repositories;
+package com.adilbou.securityjwt.Repositories;
 //
 //
 //
-//import com.adilbou.securityjwt.Entities.Besoin;
-//import org.springframework.data.jpa.repository.JpaRepository;
-//import org.springframework.data.jpa.repository.Query;
-//import org.springframework.stereotype.Repository;
+import com.adilbou.securityjwt.Entities.Besoin;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
 //
 //import java.util.List;
 //
-//@Repository
-//public interface BesoinRepository extends JpaRepository<Besoin, Long> {
+@Repository
+public interface BesoinRepository extends JpaRepository<Besoin, Long> {
 //
 //    List<Besoin> findBesoinByIdMembreDepartementAndIsAffectedIsFalse(Integer id);
 //    List<Besoin> findBesoinByDepartementName(String nameDepartement);
@@ -28,4 +31,14 @@
 //    //List<Besoin> findBesoinByvalider();
 //
 //    List<Besoin> findAllByValiderIsTrue();
-//}
+
+
+    List<Besoin> findByDepartementNameAndIsAffectedIsNullAndIsBesoinInAppelOffreIsNull(String departementName);
+
+    List<Besoin> findByDepartementNameAndIsAffectedIsFalseAndIsBesoinInAppelOffreIsFalse(String departementName);
+
+    List<Besoin> findBesoinByIsAffectedIsFalseAndValiderIsTrue();
+
+    List<Besoin> findBesoinByDepartementNameAndIsAffectedIsFalseAndIsBesoinInAppelOffreIsNullAndValiderIsTrue(String departement);
+}
+

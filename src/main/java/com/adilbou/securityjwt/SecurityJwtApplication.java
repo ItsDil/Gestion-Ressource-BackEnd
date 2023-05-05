@@ -102,9 +102,34 @@ public class SecurityJwtApplication {
             authService.register(technicien);
 
 
+            RegisterRequest enseignant = new RegisterRequest();
+            List<Role> roles_ens = new ArrayList<>();
+            roles_ens.add(roleEnse);
+            enseignant.setFirstname("Gholam");
+            enseignant.setLastname("Sghir");
+            enseignant.setEmail("Gho@gmail.com");
+            enseignant.setPassword("1234");
+            enseignant.setDepartement("Informatique");
+            enseignant.setRoles(roles_ens);
+            authService.register(enseignant);
 
+            enseignant = new RegisterRequest();
+            enseignant.setFirstname("Gholam3");
+            enseignant.setLastname("Sghir3");
+            enseignant.setEmail("Gho3@gmail.com");
+            enseignant.setPassword("1234");
+            enseignant.setDepartement("Informatique");
+            enseignant.setRoles(roles_ens);
+            authService.register(enseignant);
 
-
+            enseignant = new RegisterRequest();
+            enseignant.setFirstname("Gholam2");
+            enseignant.setLastname("Sghir2");
+            enseignant.setEmail("Gho2@gmail.com");
+            enseignant.setPassword("1234");
+            enseignant.setDepartement("Mathematique");
+            enseignant.setRoles(roles_ens);
+            authService.register(enseignant);
 
         };
     }

@@ -38,6 +38,8 @@ public class SecurityConfiguration {
                 .hasAuthority("RESP")
                 .requestMatchers("/api/v1/Besoin-Controller/**")
                 .hasAnyAuthority("ENSE", "CHDP")
+                .requestMatchers("/api/v1/AppelOffre-Controller/**")
+                .hasAuthority("RESP")
                 .anyRequest()
                 .authenticated()
                 .and()

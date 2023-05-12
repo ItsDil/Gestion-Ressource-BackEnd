@@ -21,12 +21,13 @@ public class Ressource {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String codeBarre;
-    private Date dateLivraison;
-    private Date dateFinGarantie;
+    private String dateLivraison;
+    private String dateFinGarantie;
+    private String dateDemande;
     private String marque;
     private double prix;
     private String type;
-    private String idFournisseur;
+    private Integer idFournisseur;
     private Integer idMembreDepartement;
     private String DeparementName;
     private Boolean isDeleted = false;

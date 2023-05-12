@@ -18,6 +18,6 @@ import lombok.experimental.SuperBuilder;
 public class Fournisseur extends User{
 
     private String society;
-
+    private boolean isInBlackList=false;
 
 }

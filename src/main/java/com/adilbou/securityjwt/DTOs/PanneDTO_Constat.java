@@ -4,16 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
+public class PanneDTO_Constat {
 
-public class OrdinateurGroup {
+    private Long idPanne;
 
-    private String cpu;
-    private int ram;
-    private String stockage;
-    private String ecran;
-    private Integer count;
+    private String constat;
 
 }

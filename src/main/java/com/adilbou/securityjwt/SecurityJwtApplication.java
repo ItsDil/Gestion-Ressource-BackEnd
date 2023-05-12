@@ -74,63 +74,77 @@ public class SecurityJwtApplication {
             authService.register(admin);
 
 
-
-            for(int i=0;i<5;i++){
-                List<Role> roles_four = new ArrayList<>();
-                roles_four.add(roleFournisseur);
-                RegisterRequest fournisseur = new RegisterRequest();
-                fournisseur.setFirstname("four"+i);
-                fournisseur.setLastname("last four"+i);
-                fournisseur.setEmail("four"+i+"@gmail.com");
-                fournisseur.setPassword("1234");
-                fournisseur.setSociety("SOKA");
-                fournisseur.setRoles(roles_four);
-                authService.register(fournisseur);
-
-            }
-
-
-            RegisterRequest technicien = new RegisterRequest();
-            List<Role> roles_tech = new ArrayList<>();
-            roles_tech.add(roleTech);
-            technicien.setFirstname("tech");
-            technicien.setLastname("thbou");
-            technicien.setEmail("tech@gmail.com");
-            technicien.setPassword("1234");
-            technicien.setSpeciality("Materiel Side");
-            technicien.setRoles(roles_tech);
-            authService.register(technicien);
-
-
-            RegisterRequest enseignant = new RegisterRequest();
-            List<Role> roles_ens = new ArrayList<>();
-            roles_ens.add(roleEnse);
-            enseignant.setFirstname("Gholam");
-            enseignant.setLastname("Sghir");
-            enseignant.setEmail("Gho@gmail.com");
-            enseignant.setPassword("1234");
-            enseignant.setDepartement("Informatique");
-            enseignant.setRoles(roles_ens);
-            authService.register(enseignant);
-
-            enseignant = new RegisterRequest();
-            enseignant.setFirstname("Gholam3");
-            enseignant.setLastname("Sghir3");
-            enseignant.setEmail("Gho3@gmail.com");
-            enseignant.setPassword("1234");
-            enseignant.setDepartement("Informatique");
-            enseignant.setRoles(roles_ens);
-            authService.register(enseignant);
-
-            enseignant = new RegisterRequest();
-            enseignant.setFirstname("Gholam2");
-            enseignant.setLastname("Sghir2");
-            enseignant.setEmail("Gho2@gmail.com");
-            enseignant.setPassword("1234");
-            enseignant.setDepartement("Mathematique");
-            enseignant.setRoles(roles_ens);
-            authService.register(enseignant);
-
+//
+//            for(int i=0;i<5;i++){
+//                List<Role> roles_four = new ArrayList<>();
+//                roles_four.add(roleFournisseur);
+//                RegisterRequest fournisseur = new RegisterRequest();
+//                fournisseur.setFirstname("four"+i);
+//                fournisseur.setLastname("last four"+i);
+//                fournisseur.setEmail("four"+i+"@gmail.com");
+//                fournisseur.setPassword("1234");
+//                fournisseur.setSociety("SOKA");
+//                fournisseur.setRoles(roles_four);
+//                authService.register(fournisseur);
+//
+//            }
+//
+//
+//            RegisterRequest technicien = new RegisterRequest();
+//            List<Role> roles_tech = new ArrayList<>();
+//            roles_tech.add(roleTech);
+//            technicien.setFirstname("tech");
+//            technicien.setLastname("thbou");
+//            technicien.setEmail("tech@gmail.com");
+//            technicien.setPassword("1234");
+//            technicien.setSpeciality("Materiel Side");
+//            technicien.setRoles(roles_tech);
+//            authService.register(technicien);
+//
+//
+//            RegisterRequest enseignant = new RegisterRequest();
+//            List<Role> roles_ens = new ArrayList<>();
+//            roles_ens.add(roleEnse);
+//            enseignant.setFirstname("ensInf1");
+//            enseignant.setLastname("inf1");
+//            enseignant.setEmail("ensInf1@gmail.com");
+//            enseignant.setPassword("1234");
+//            enseignant.setDepartement("Informatique");
+//            enseignant.setRoles(roles_ens);
+//            authService.register(enseignant);
+//
+//            enseignant = new RegisterRequest();
+//            enseignant.setFirstname("ensInf2");
+//            enseignant.setLastname("inf2");
+//            enseignant.setEmail("ensInf2@gmail.com");
+//            enseignant.setPassword("1234");
+//            enseignant.setDepartement("Informatique");
+//            enseignant.setRoles(roles_ens);
+//            authService.register(enseignant);
+//
+//            enseignant = new RegisterRequest();
+//            enseignant.setFirstname("ensMath");
+//            enseignant.setLastname("math");
+//            enseignant.setEmail("ensMath@gmail.com");
+//            enseignant.setPassword("1234");
+//            enseignant.setDepartement("Mathematique");
+//            enseignant.setRoles(roles_ens);
+//            authService.register(enseignant);
+//
+//
+//
+//
+//
+//            RegisterRequest chefDepartement = new RegisterRequest();
+//            List<Role> roles_chdp = new ArrayList<>();
+//            roles_chdp.add(roleChefDepart);
+//            chefDepartement.setFirstname("chefDepInfo");
+//            chefDepartement.setLastname("chefDepInfo");
+//            chefDepartement.setEmail("chInfo@gmail.com");
+//            chefDepartement.setPassword("1234");
+//            chefDepartement.setDepartement("Informatique");
+//            chefDepartement.setRoles(roles_chdp);
+//            authService.register(chefDepartement);
         };
     }
 }

@@ -14,6 +14,6 @@ public interface OrdinateurRepository extends JpaRepository<Ordinateur, Long> {
 //    public List<Ordinateur> getOrdinateurByIdMembreDepartement(Integer id);
 //    public List<Ordinateur> getOrdinateurByDeparementName(String id);
 ////    public List<Ordinateur> getOrdinateurByIdFournisseur(Integer id);
-//
-//
+    public Ordinateur findOrdinateurById(Long id);
+
 }

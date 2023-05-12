@@ -14,5 +14,7 @@ public interface ImprimanteRepository extends JpaRepository<Imprimante, Long> {
 //    public List<Imprimante> getImprimanteByIdMembreDepartement(Integer id);
 //    public List<Imprimante> getImprimanteByDeparementName(String DeparementName);
 ////    public List<Imprimante> getImprimanteByIdFournisseur(String id);
-//
+
+
+    Imprimante findImprimanteById(Long id);
 }

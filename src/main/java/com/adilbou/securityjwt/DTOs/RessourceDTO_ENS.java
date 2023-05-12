@@ -1,19 +1,19 @@
 package com.adilbou.securityjwt.DTOs;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+import java.util.ArrayList;
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
+public class RessourceDTO_ENS
+{
 
-public class OrdinateurGroup {
-
-    private String cpu;
-    private int ram;
-    private String stockage;
-    private String ecran;
-    private Integer count;
+    List<RessourcesDTO> ressourcesDTOList=new ArrayList<>();
 
 }

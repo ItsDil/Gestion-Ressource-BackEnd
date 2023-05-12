@@ -1,6 +1,7 @@
 package com.adilbou.securityjwt.Web;
 
 import com.adilbou.securityjwt.Entities.Member;
+import com.adilbou.securityjwt.Entities.Technicien;
 import com.adilbou.securityjwt.Entities.User;
 import com.adilbou.securityjwt.Service.UserSevice;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,10 @@ public class demoController {
     @GetMapping("/members")
     public List<Member> getAllMemebers(){
         return userSevice.getAllMemebers();
+    }
+    @GetMapping("/Technicien")
+    public List<Technicien> getAllTechnicien(){
+        return userSevice.getAllTech();
     }
 
 }

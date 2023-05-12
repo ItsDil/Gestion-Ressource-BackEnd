@@ -55,6 +55,11 @@ public class BesoinServiceImpl implements BesoinService {
             ordTemp.setEcran(ordinateur.getEcran());
             ordTemp.setDeparementName(departementName);
             ordTemp.setIdMembreDepartement(membreDepartement.getId());
+            Date date = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = formatter.format(date);
+            ordTemp.setDateDemande(formattedDate);
+
             ordinateurList.add(ordTemp);
             ordinateurService.addOrdinateur(ordTemp);
         }
@@ -64,6 +69,10 @@ public class BesoinServiceImpl implements BesoinService {
             impTemp.setVitesse(imprimante.getVitesse());
             impTemp.setDeparementName(departementName);
             impTemp.setIdMembreDepartement(membreDepartement.getId());
+            Date date = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = formatter.format(date);
+            impTemp.setDateDemande(formattedDate);
             imprimanteList.add(impTemp);
             imprimanteService.addImprimante(impTemp);
         }
@@ -120,13 +129,16 @@ public class BesoinServiceImpl implements BesoinService {
         String departementName = membreDepartement.getDepartement();
 
         List<Member> members=membreDepartementRepository.findMembreDepartementBydepartement(departementName);
-        List<Besoin> besoinList=besoinRepository.findByDepartementNameAndIsAffectedIsFalseAndIsBesoinInAppelOffreIsFalse(departementName);
+        List<Besoin> besoinList=besoinRepository.findByDepartementNameAndIsAffectedIsFalseAndIsBesoinInAppelOffreIsFalseAndValiderIsFalse(departementName);
+
+
 
         for(Member member:members){
-            BesoinDTO miniBesoin=new BesoinDTO();
-
+            BesoinDTO miniBesoin=null;
             for(Besoin besoin:besoinList){
                 if(!member.getId().equals(id) && member.getId().equals( besoin.getIdMembreDepartement())) {
+                     miniBesoin=new BesoinDTO();
+
                     miniBesoin.setId(member.getId());
                     miniBesoin.setIdBesoin(besoin.getId());
                     miniBesoin.setFirstname(member.getFirstname());
@@ -137,7 +149,7 @@ public class BesoinServiceImpl implements BesoinService {
                     miniBesoin.setImprimantes((List<Imprimante>) besoin.getImprimantes());
                 }
             }
-            if(!member.getId().equals(id)) {
+            if(!member.getId().equals(id) && miniBesoin!=null) {
                 besoinDTO.add(miniBesoin);
             }
 
@@ -166,7 +178,7 @@ public class BesoinServiceImpl implements BesoinService {
         List<BesoinAppOffDTO> besoinAppOffDTOS = new ArrayList<>();
 
         List<Besoin> besoins=new ArrayList<>();
-//        besoins=besoinRepository.findBesoinByIsAffectedIsFalseAndValiderIsTrue();
+        besoins=besoinRepository.findBesoinByIsAffectedIsFalseAndValiderIsTrue();
         List<Member> Members=membreDepartementRepository.findAll();
         List<String> departement= new ArrayList<>();
         List<Member> ChefDeparts= new ArrayList<>();
@@ -180,7 +192,9 @@ public class BesoinServiceImpl implements BesoinService {
         for(Member m:Members) {
             if (m.getRoles().get(0).getRolename().equals("CHDP")) {
 
-                besoins=besoinRepository.findBesoinByDepartementNameAndIsAffectedIsFalseAndIsBesoinInAppelOffreIsNullAndValiderIsTrue(m.getDepartement());
+                System.out.println("departement : "+m);
+                besoins=besoinRepository.findByDepartementNameAndIsAffectedIsFalseAndIsBesoinInAppelOffreIsFalseAndValiderIsTrue(m.getDepartement());
+                System.out.println("besoins : "+besoins);
                 if(besoins != null){
 
                     BesoinAppOffDTO besoinAppOffDTO = new BesoinAppOffDTO();
@@ -188,7 +202,8 @@ public class BesoinServiceImpl implements BesoinService {
                     besoinAppOffDTO.setEmail(m.getEmail());
                     besoinAppOffDTO.setDepartement(m.getDepartement());
 
-                    List<BesoinDTO> besoinDTOS = getMiniAppelOffre(m.getId()).getBesoinDTO();
+                    List<BesoinDTO> besoinDTOS = getMiniAppelOffreResp(m.getId()).getBesoinDTO();
+                    System.out.println("besoinDTOS : "+besoinDTOS);
 
                     besoinAppOffDTO.setBesoinDTO(besoinDTOS);
 
@@ -201,6 +216,53 @@ public class BesoinServiceImpl implements BesoinService {
 
         return appelOffreDTO;
     }
+
+
+
+    @Override
+    public MiniAppelOffreDTO getMiniAppelOffreResp(Integer id) {
+
+        MiniAppelOffreDTO miniAppelOffreDTO = new MiniAppelOffreDTO();
+        List<BesoinDTO> besoinDTO=new ArrayList<>();
+
+        Member membreDepartement = membreDepartementRepository.findMembreDepartementById(id);
+
+        String departementName = membreDepartement.getDepartement();
+
+        List<Member> members=membreDepartementRepository.findMembreDepartementBydepartement(departementName);
+        List<Besoin> besoinList=besoinRepository.findByDepartementNameAndIsAffectedIsFalseAndIsBesoinInAppelOffreIsFalseAndValiderIsTrue(departementName);
+
+
+
+        for(Member member:members){
+            BesoinDTO miniBesoin=null;
+            for(Besoin besoin:besoinList){
+                if(!member.getId().equals(id) && member.getId().equals( besoin.getIdMembreDepartement())) {
+                    miniBesoin=new BesoinDTO();
+
+                    miniBesoin.setId(member.getId());
+                    miniBesoin.setIdBesoin(besoin.getId());
+                    miniBesoin.setFirstname(member.getFirstname());
+                    miniBesoin.setLastname(member.getLastname());
+                    miniBesoin.setEmail(member.getEmail());
+                    miniBesoin.setDateDemande(besoin.getDateDemande());
+                    miniBesoin.setOrdinateurs((List<Ordinateur>) besoin.getOrdinateurs());
+                    miniBesoin.setImprimantes((List<Imprimante>) besoin.getImprimantes());
+                }
+            }
+            if(!member.getId().equals(id) && miniBesoin!=null) {
+                besoinDTO.add(miniBesoin);
+            }
+
+        }
+
+        miniAppelOffreDTO.setBesoinDTO(besoinDTO);
+
+        return miniAppelOffreDTO;
+    }
+
+
+
 //    @Override
 //    public List<Besoin> getAllBesoins() {
 //        return besoinRepository.findAll();

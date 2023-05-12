@@ -49,6 +49,14 @@ public class User implements UserDetails {
         return roles.stream().map(role ->
                 new SimpleGrantedAuthority(role.getRolename())).collect(Collectors.toList());
     }
+
+
+    @OneToMany(mappedBy = "src", cascade = CascadeType.ALL)
+    private List<Message> sentMessages;
+
+    @OneToMany(mappedBy = "dest", cascade = CascadeType.ALL)
+    private List<Message> receivedMessages;
+
     @Override
     public String getPassword() {
         return password;

@@ -21,7 +21,7 @@ public class Besoin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String dateDemande;
-    private Date dateAffectation;
+    private String dateAffectation;
     private Boolean isAffected=false;
     private Integer idMembreDepartement;
     private  String departementName;
@@ -30,7 +30,6 @@ public class Besoin {
     private  Boolean valider=false;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-
     private Collection<Ordinateur> ordinateurs = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Imprimante> imprimantes = new ArrayList<>();

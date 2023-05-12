@@ -8,4 +8,7 @@ import java.util.List;
 public interface FournisseurRepository extends JpaRepository<Fournisseur,Integer> {
 
     List<Fournisseur> findAll();
+
+
+
 }

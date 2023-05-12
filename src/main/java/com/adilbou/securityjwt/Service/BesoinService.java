@@ -31,4 +31,6 @@ public interface BesoinService {
     void MiniAppelOffreValidation(BesoinValide besoinValide);
 
     AppelOffreDTO getAppelOffreValide();
+
+    public MiniAppelOffreDTO getMiniAppelOffreResp(Integer id);
 }

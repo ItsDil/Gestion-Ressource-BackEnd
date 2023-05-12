@@ -4,16 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+public class AppleOffreDTOResp {
 
-public class OrdinateurGroup {
-
-    private String cpu;
-    private int ram;
-    private String stockage;
-    private String ecran;
-    private Integer count;
-
+    private List<OffreDTOResp> offreDTOResps = new ArrayList<>();
 }

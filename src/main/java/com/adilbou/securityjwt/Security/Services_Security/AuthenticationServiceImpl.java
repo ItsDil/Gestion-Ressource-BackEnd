@@ -1,8 +1,10 @@
 package com.adilbou.securityjwt.Security.Services_Security;
 
 import com.adilbou.securityjwt.Entities.*;
+import com.adilbou.securityjwt.Exception.BlackListException;
 import com.adilbou.securityjwt.Exception.EntityExistException;
 import com.adilbou.securityjwt.Exception.NotFoundException;
+import com.adilbou.securityjwt.Repositories.FournisseurRepository;
 import com.adilbou.securityjwt.Security.ConfigSecur.JwtService;
 import com.adilbou.securityjwt.Repositories.RoleRepository;
 import com.adilbou.securityjwt.Repositories.UserRepository;
@@ -34,6 +36,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final FournisseurRepository fournisseurRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final TokenRepository tokenRepository;
@@ -125,6 +128,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             extraClaims.put("id", chefDepartement.getId());
             extraClaims.put("firstName", chefDepartement.getFirstname());
             extraClaims.put("lastName", chefDepartement.getLastname());
+            extraClaims.put("departement", chefDepartement.getDepartement());
             extraClaims.put("roles", roles);
 
             var jwtToken = jwtService.generateToken(extraClaims,chefDepartement);
@@ -150,6 +154,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             extraClaims.put("id", enseignant.getId());
             extraClaims.put("firstName", enseignant.getFirstname());
             extraClaims.put("lastName", enseignant.getLastname());
+            extraClaims.put("departement", enseignant.getDepartement());
             extraClaims.put("roles", roles);
 
             var jwtToken = jwtService.generateToken(extraClaims,enseignant);
@@ -193,7 +198,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         try{
 
-
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -204,12 +208,37 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         var user = userRepository.findByEmail(request.getEmail()).get();
 
 
-
         Map<String, Object> extraClaims = new HashMap<>();
+        Role role = user.getRoles().get(0);
+        if(role.getRolename().equals("CHDP") || role.getRolename().equals("ENSE")){
+            Member member = (Member) userRepository.findById(user.getId()).get();
+            extraClaims.put("departement", member.getDepartement());
+        }
+
+
+        if(role.getRolename().equals("FOUR")) {
+            Fournisseur fournisseur = (Fournisseur) userRepository.findById(user.getId()).get();
+
+            System.out.println("skjdgljsgls : "+fournisseur.isInBlackList());
+            if(fournisseur.isInBlackList()){
+                throw new BlackListException("You have banned !! ");
+            }
+
+        }
+
+
         extraClaims.put("id", user.getId());
         extraClaims.put("firstName", user.getFirstname());
         extraClaims.put("lastName", user.getLastname());
-        extraClaims.put("roles", user.getRoles());
+
+        List<String> roles = new ArrayList<>();
+        for(Role role1 : user.getRoles()){
+            roles.add(role1.getRolename());
+        }
+
+        extraClaims.put("roles", roles);
+
+//        extraClaims.put("roles", user.getRoles());
 
 
         var jwtToken = jwtService.generateToken(extraClaims,user);
@@ -221,8 +250,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .refreshToken(refreshToken)
                 .build();
 
+        }
+        catch (BlackListException e){
+            throw new BlackListException("You have banned !! ");
         }catch (AuthenticationException e){
-            throw new NotFoundException("Bad Credential");
+            throw new NotFoundException("Bad Credential ");
         }
     }
 
